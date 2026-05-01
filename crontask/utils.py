@@ -18,7 +18,7 @@ if redis_url := get_settings().REDIS_URL:
     import redis
     from redis.exceptions import LockError, LockNotOwnedError  # noqa
 
-    redis_client = redis.Redis.from_url(redis_url)
+    redis_client = redis.Redis.from_url(redis_url, **get_settings().REDIS_OPTIONS)
     lock = redis_client.lock(
         "crontask-lock",
         blocking_timeout=get_settings().LOCK_BLOCKING_TIMEOUT,
